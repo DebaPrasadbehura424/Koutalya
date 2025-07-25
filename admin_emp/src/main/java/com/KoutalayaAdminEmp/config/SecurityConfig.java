@@ -1,4 +1,4 @@
-package com.KoutalayaAdminEmp.security;
+package com.KoutalayaAdminEmp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
