@@ -9,9 +9,9 @@ public class WebConfig implements WebMvcConfigurer {// for cors policy and webco
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping("/**")// allow all endponits ho-ho  
+        corsRegistry.addMapping("/**")// allow all endponits ho-ho
                 .allowedOrigins("http://localhost:1919")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*");
     }
 

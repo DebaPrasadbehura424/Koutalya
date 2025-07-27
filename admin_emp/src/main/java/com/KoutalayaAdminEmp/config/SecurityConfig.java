@@ -14,7 +14,8 @@ public class SecurityConfig {
           // object and not manage it ok
     @SuppressWarnings({ "removal", "deprecation" })
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        http.cors(cors -> {
+        })
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth.anyRequest().permitAll())
                 .formLogin(form -> form.disable())

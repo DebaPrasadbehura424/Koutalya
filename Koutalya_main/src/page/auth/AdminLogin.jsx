@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
@@ -8,6 +8,7 @@ function AdminLogin() {
   const [adminPassword, setAdminPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ function AdminLogin() {
         "http://localhost:1950/admin/login",
         payload
       );
-      console.log(response.data);
+      navigate("/admin_dashboard");
     } catch (err) {
       console.error(err);
       setError("Invalid credentials");
@@ -95,12 +96,12 @@ function AdminLogin() {
         </form>
 
         <div className="mt-4 text-center text-sm">
-          <NavLink
+          {/* <NavLink
             to="/admin_register"
             className="text-blue-400 hover:text-blue-300"
           >
             Register
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </div>

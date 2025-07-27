@@ -17,7 +17,7 @@ function AdminRegister(props) {
         email,
         idCardNumber,
       });
-      props.onRegister(response.data);
+      alert("register successfully");
     } catch (err) {
       setError("Registration failed");
     }
@@ -79,12 +79,12 @@ function AdminRegister(props) {
         </button>
 
         <div className="mt-4 text-center text-sm">
-          <NavLink
+          {/* <NavLink
             to="/admin_login"
             className="text-blue-400 hover:text-blue-300"
           >
             Already have an account? Login
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </div>
