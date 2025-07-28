@@ -5,6 +5,11 @@ import AdminLogin from "./page/auth/AdminLogin";
 import AdminRegister from "./page/auth/AdminRegister";
 import AdminDashboard from "./page/admins/AdminDashboard";
 import NoticeBoard from "./page/admins/NoticeBoard";
+import EmployeeRegister from "./page/admins/EmployeeRegister";
+import Total_Employee from "./page/admins/Total_Employee";
+import News from "./page/academy/News";
+import TimeTableStudent from "./page/admins/TimeTableStudent";
+import Teacher_time_table from "./page/admins/Teacher_time_table";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +18,16 @@ function App() {
         <Route path="/admin_login" element={<AdminLogin />} />
         <Route path="/admin_register" element={<AdminRegister />} />
         <Route path="/admin_dashboard" element={<AdminDashboard />} />
+        <Route path="/emp_register" element={<EmployeeRegister />} />
+        <Route path="/total_employee" element={<Total_Employee />} />
+        <Route
+          path="/teacher_time_table/:email"
+          element={<Teacher_time_table />}
+        />
+
+        {/* i will build this shit using mysql not mongodb */}
+        <Route path="/news_info" element={<News />} />
+        <Route path="/time_table_student" element={<TimeTableStudent />} />
       </Routes>
     </BrowserRouter>
   );

@@ -7,7 +7,7 @@ public class PasswordGenerator {
     private static final int PASSWORD_LENGTH = 6;
     private static final SecureRandom Random = new SecureRandom();
 
-    public static String generateAdminPassword() {
+    public static String generatePassword() {
         StringBuilder sb = new StringBuilder(PASSWORD_LENGTH);
         for (int i = 0; i < PASSWORD_LENGTH; i++) {
             int index = Random.nextInt(NUMBER_SET.length());

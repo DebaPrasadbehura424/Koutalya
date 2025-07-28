@@ -16,8 +16,6 @@ import java.util.List;
 public class EmployeeModel {
     // those are needed we will handle that on our fornted not in my backend only to
     // this model
-    @Id
-    private String idx;
 
     private String empName;
 
@@ -30,9 +28,8 @@ public class EmployeeModel {
 
     private String empPhoto;
 
-    private String contactNumber;
-
     private String salary;
+    private String WorkInformation;
 
     private String courseType;
     private String branch;

@@ -21,8 +21,9 @@ public class AdminServices {
             return null;
         }
         if (adminModel.getAdminPassword() == null || adminModel.getAdminPassword().isEmpty()) {
-            adminModel.setAdminPassword(PasswordGenerator.generateAdminPassword());
+            adminModel.setAdminPassword(PasswordGenerator.generatePassword());
         }
+
         return adminRepository.save(adminModel);
     }
 
@@ -30,7 +31,7 @@ public class AdminServices {
         if (data.contains("@")) {// itmeans it is a email
             return adminRepository.findByEmail(data);
         }
-        return adminRepository.findByIdCardNumber(data);// else it is id card number 
+        return adminRepository.findByIdCardNumber(data);// else it is id card number
     }
 
 }
