@@ -1,7 +1,12 @@
 import { useState } from "react";
+import StudentLogin from "./auth_student/StudentLogin";
 
 function App() {
-  return <>Student</>;
+  return (
+    <>
+      <StudentLogin />
+    </>
+  );
 }
 
 export default App;
