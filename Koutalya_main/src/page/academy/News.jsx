@@ -1,61 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { FiEdit, FiTrash2, FiPlus, FiArrowLeft } from "react-icons/fi";
 
-const dummyNews = [
-  {
-    id: 1,
-    title: "New Lab Inauguration",
-    description:
-      "A brand new computer lab was inaugurated today with modern equipment.",
-    image: "https://source.unsplash.com/400x250/?technology,lab",
-    date: "2025-07-20",
-  },
-  {
-    id: 2,
-    title: "Cultural Fest",
-    description:
-      "Annual cultural fest will be held on August 20. All students are invited!",
-    image: "https://source.unsplash.com/400x250/?culture,festival",
-    date: "2025-07-15",
-  },
-  {
-    id: 3,
-    title: "Placement Drive",
-    description: "Top companies will visit campus next week for placements.",
-    image: "https://source.unsplash.com/400x250/?job,office",
-    date: "2025-07-10",
-  },
-];
+const API_URL = "http://localhost:1950/news";
 
 function News() {
-  const [newsList, setNewsList] = useState(dummyNews);
+  const [newsList, setNewsList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [newNews, setNewNews] = useState({
+  const [editId, setEditId] = useState(null);
+  const [formData, setFormData] = useState({
     title: "",
-    description: "",
-    image: "",
+    context: "",
+    imageURL: "",
   });
 
-  const handleDelete = (id) => {
-    setNewsList(newsList.filter((news) => news.id !== id));
+  // Fetch all news
+  const fetchNews = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/all`);
+      setNewsList(res.data);
+    } catch (err) {
+      console.error("Error fetching news", err);
+    }
   };
 
-  const handleEdit = (id) => {
-    alert(`Edit News ID: ${id}`);
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  // Submit (Add or Edit)
+  const handleSubmit = async () => {
+    try {
+      if (editId) {
+        await axios.put(`${API_URL}/edit/${editId}`, formData);
+      } else {
+        await axios.post(`${API_URL}/create`, formData);
+      }
+      setFormData({ title: "", context: "", imageURL: "" });
+      setEditId(null);
+      setShowForm(false);
+      fetchNews();
+    } catch (err) {
+      console.error("Error saving news", err);
+    }
   };
 
-  const handleAddNews = () => {
-    const newItem = {
-      ...newNews,
-      id: Date.now(),
-      date: "2025-07-28", // Dummy publish date
-    };
-    setNewsList([newItem, ...newsList]);
-    setNewNews({ title: "", description: "", image: "" });
-    setShowForm(false);
+  // Delete News
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this news?")) return;
+    try {
+      await axios.delete(`${API_URL}/delete/${id}`);
+      fetchNews();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
   };
 
+  // Prepare form for editing
+  const handleEdit = (news) => {
+    setFormData({
+      title: news.title,
+      context: news.context,
+      imageURL: news.imageURL,
+    });
+    setEditId(news.id);
+    setShowForm(true);
+  };
+
+  // Filter search
   const filteredNews = newsList.filter((news) =>
     news.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -67,7 +80,11 @@ function News() {
         {!showForm && (
           <button
             className="flex items-center gap-2 bg-blue-700 px-4 py-2 rounded hover:bg-blue-800 transition"
-            onClick={() => setShowForm(true)}
+            onClick={() => {
+              setShowForm(true);
+              setFormData({ title: "", context: "", imageURL: "" });
+              setEditId(null);
+            }}
           >
             <FiPlus /> Add News
           </button>
@@ -77,9 +94,15 @@ function News() {
       {showForm ? (
         <div className="bg-gray-800 p-6 rounded shadow-md">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold">Add News</h3>
+            <h3 className="text-xl font-semibold">
+              {editId ? "Edit News" : "Add News"}
+            </h3>
             <button
-              onClick={() => setShowForm(false)}
+              onClick={() => {
+                setShowForm(false);
+                setFormData({ title: "", context: "", imageURL: "" });
+                setEditId(null);
+              }}
               className="flex items-center gap-1 text-sm px-3 py-1 rounded bg-gray-600 hover:bg-gray-700 transition"
             >
               <FiArrowLeft /> Back
@@ -89,17 +112,17 @@ function News() {
             <input
               type="text"
               placeholder="News Title"
-              value={newNews.title}
+              value={formData.title}
               onChange={(e) =>
-                setNewNews({ ...newNews, title: e.target.value })
+                setFormData({ ...formData, title: e.target.value })
               }
               className="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
             />
             <textarea
-              placeholder="Description / Context"
-              value={newNews.description}
+              placeholder="News Description / Context"
+              value={formData.context}
               onChange={(e) =>
-                setNewNews({ ...newNews, description: e.target.value })
+                setFormData({ ...formData, context: e.target.value })
               }
               className="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
               rows={4}
@@ -107,17 +130,17 @@ function News() {
             <input
               type="text"
               placeholder="Image URL"
-              value={newNews.image}
+              value={formData.imageURL}
               onChange={(e) =>
-                setNewNews({ ...newNews, image: e.target.value })
+                setFormData({ ...formData, imageURL: e.target.value })
               }
               className="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
             />
             <button
-              onClick={handleAddNews}
+              onClick={handleSubmit}
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
             >
-              Submit News
+              {editId ? "Update News" : "Submit News"}
             </button>
           </div>
         </div>
@@ -140,23 +163,18 @@ function News() {
                 className="bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col"
               >
                 <img
-                  src={news.image}
+                  src={news.imageURL}
                   alt={news.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="text-xl font-bold mb-2">{news.title}</h3>
-                    <p className="text-sm text-gray-300 mb-3">
-                      {news.description}
-                    </p>
-                    <p className="text-xs text-gray-400 mb-4">
-                      Published on: {news.date}
-                    </p>
+                    <p className="text-sm text-gray-300 mb-3">{news.context}</p>
                   </div>
-                  <div className="flex justify-end gap-3">
+                  <div className="flex justify-end gap-3 mt-4">
                     <button
-                      onClick={() => handleEdit(news.id)}
+                      onClick={() => handleEdit(news)}
                       className="flex items-center gap-1 text-sm px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 transition"
                     >
                       <FiEdit /> Edit
