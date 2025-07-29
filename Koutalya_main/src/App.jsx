@@ -4,7 +4,6 @@ import Home from "./page/academy/Home";
 import AdminLogin from "./page/auth/AdminLogin";
 import AdminRegister from "./page/auth/AdminRegister";
 import AdminDashboard from "./page/admins/AdminDashboard";
-import NoticeBoard from "./page/admins/NoticeBoard";
 import EmployeeRegister from "./page/admins/EmployeeRegister";
 import Total_Employee from "./page/admins/Total_Employee";
 import News from "./page/academy/News";
@@ -24,7 +23,6 @@ function App() {
           path="/teacher_time_table/:email"
           element={<Teacher_time_table />}
         />
-
         {/* i will build this shit using mysql not mongodb */}
         <Route path="/news_info" element={<News />} />
         <Route path="/time_table_student" element={<TimeTableStudent />} />

@@ -10,17 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean // it is necessary here other wise springContainer will not recomend as the
-          // object and not manage it ok
-    @SuppressWarnings({ "removal", "deprecation" })
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(cors -> {
-        })
+        http
+                .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
-                .authorizeRequests(auth -> auth.anyRequest().permitAll())
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable());
 
         return http.build();
     }
+
 }

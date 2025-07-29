@@ -59,4 +59,8 @@ public class EmployeeServices {
         return employeeRepository.findAll();
 
     }
+
+    public EmployeeModel findByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
 }

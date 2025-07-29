@@ -8,4 +8,6 @@ public interface EmployeeRepository extends MongoRepository<EmployeeModel, Strin
 
     EmployeeModel findByEmail(String email);
 
+    void deleteByEmail(String email);
+
 }

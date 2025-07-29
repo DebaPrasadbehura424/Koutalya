@@ -7,30 +7,39 @@ function Total_Employee() {
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
 
-  const handleDelete = (id) => {
-    const updated = employees.filter((emp) => emp.id !== id);
-    setEmployees(updated);
-  };
-
-  const handleEdit = (id) => {
-    alert(`Edit employee with ID: ${id}`);
-  };
-
   const handleTimeTable = (email) => {
     navigate(`/teacher_time_table/${email}`);
   };
 
-  async function getAllEmployee() {
-    await axios
-      .get("http://localhost:1950/emps/getEmployee")
-      .then((res) => {
-        setEmployees(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const handleDelete = async (email) => {
+    try {
+      await axios.delete(
+        `http://localhost:1950/emps/deleteEmployee?email=${email}`
+      );
+
+      const updated = employees.filter((emp) => emp.email !== email);
+      setEmployees(updated);
+      alert("Employee deleted successfully");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete employee");
+    }
+  };
+
+  const handleEdit = (id) => {
+    alert(`Edit employee with ID: ${id} till now it is not done `);
+  };
+
+  const getAllEmployee = async () => {
+    try {
+      const res = await axios.get("http://localhost:1950/emps/getEmployee");
+      console.log(res.data);
+
+      setEmployees(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     getAllEmployee();
@@ -70,7 +79,7 @@ function Total_Employee() {
                 <FiEdit /> Edit
               </button>
               <button
-                onClick={() => handleDelete(emp.id)}
+                onClick={() => handleDelete(emp.email)}
                 className="flex items-center gap-1 px-3 py-1 rounded bg-red-600 hover:bg-red-700 transition"
               >
                 <FiTrash2 /> Delete

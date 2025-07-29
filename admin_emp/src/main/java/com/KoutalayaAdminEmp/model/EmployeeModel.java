@@ -1,7 +1,6 @@
 package com.KoutalayaAdminEmp.model;
 
 import lombok.*;
-import jakarta.persistence.Id;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
