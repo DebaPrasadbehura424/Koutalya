@@ -13,6 +13,7 @@ import NoticeBoard from "./NoticeBoard";
 import EmployeeInfo from "./EmployeeInfo";
 import News from "../academy/News";
 import TimeTableStudent from "./TimeTableStudent";
+import StudentRegister from "../auth/StudentRegister";
 
 function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,11 +28,7 @@ function AdminDashboard() {
       case 2:
         return <EmployeeInfo />;
       case 3:
-        return (
-          <div className="text-xl text-center text-blue-400">
-            Student Section Coming Soon
-          </div>
-        );
+        return <StudentRegister />;
       case 4:
         return <TimeTableStudent />;
       case 5:

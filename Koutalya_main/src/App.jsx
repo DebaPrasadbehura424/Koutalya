@@ -9,6 +9,7 @@ import Total_Employee from "./page/admins/Total_Employee";
 import News from "./page/academy/News";
 import TimeTableStudent from "./page/admins/TimeTableStudent";
 import Teacher_time_table from "./page/admins/Teacher_time_table";
+import Allstudent from "./page/admins/Allstudent";
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
         {/* i will build this shit using mysql not mongodb */}
         <Route path="/news_info" element={<News />} />
         <Route path="/time_table_student" element={<TimeTableStudent />} />
+        <Route path="/all_student" element={<Allstudent />} />
       </Routes>
     </BrowserRouter>
   );
