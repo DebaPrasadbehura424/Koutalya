@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Id;
+
 import java.util.List;
 
 @Document(collection = "employees")
@@ -15,6 +17,8 @@ import java.util.List;
 public class EmployeeModel {
     // those are needed we will handle that on our fornted not in my backend only to
     // this model
+    @Id
+    private String id;
 
     private String empName;
 

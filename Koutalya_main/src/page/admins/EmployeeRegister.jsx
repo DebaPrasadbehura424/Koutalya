@@ -43,6 +43,8 @@ function EmployeeRegister() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
+
     axios
       .post("http://localhost:1950/emps/register", formData)
       .then((res) => {

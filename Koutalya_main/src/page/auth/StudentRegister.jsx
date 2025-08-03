@@ -13,6 +13,7 @@ function StudentRegister() {
     branch: "",
     startYear: "",
     endYear: "",
+    photo: "",
   });
 
   const handleChange = (e) => {
@@ -36,6 +37,7 @@ function StudentRegister() {
           branch: "",
           startYear: "",
           endYear: "",
+          photo: "",
         });
       })
       .catch((err) => {
@@ -47,110 +49,111 @@ function StudentRegister() {
   const handleViewAll = () => navigate("/all_student");
 
   return (
-    <div className="min-h-screen bg-[#1E293B] px-4 py-8 relative text-white">
-      <div className="absolute top-6 right-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 px-4 py-10 text-white flex justify-center items-center">
+      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg p-8 text-gray-900 relative">
         <button
           onClick={handleViewAll}
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md transition duration-200"
+          className="absolute top-4 right-4 flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md shadow-md text-sm"
         >
-          <FiUsers className="text-lg" />
-          See All Students
+          <FiUsers className="text-base" />
+          All Students
         </button>
-      </div>
 
-      <div className="flex justify-center items-center">
-        <div className="bg-white text-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-md">
-          <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">
-            Student Registration
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
-            <input
-              type="text"
-              name="photo"
-              placeholder="Photo URL"
-              value={formData.photo}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
+        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
+          Student Registration
+        </h2>
 
-            <input
-              type="text"
-              name="registrationId"
-              placeholder="Registration ID"
-              value={formData.registrationId}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
-            <select
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            >
-              <option value="">Select Course</option>
-              <option value="BTech">BTech</option>
-              <option value="Diploma">Diploma</option>
-            </select>
-            <select
-              name="branch"
-              value={formData.branch}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            >
-              <option value="">Select Branch</option>
-              <option value="CSE">CSE</option>
-              <option value="MECH">MECH</option>
-              <option value="EE">EE</option>
-              <option value="CIVIL">CIVIL</option>
-            </select>
-            <input
-              type="number"
-              name="startYear"
-              placeholder="Start Year"
-              value={formData.startYear}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
-            <input
-              type="number"
-              name="endYear"
-              placeholder="End Year"
-              value={formData.endYear}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border rounded"
-            />
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+        >
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <input
+            type="text"
+            name="registrationId"
+            placeholder="Registration ID"
+            value={formData.registrationId}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <input
+            type="text"
+            name="photo"
+            placeholder="Photo URL"
+            value={formData.photo}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <select
+            name="course"
+            value={formData.course}
+            onChange={handleChange}
+            required
+            className="input-style"
+          >
+            <option value="">Select Course</option>
+            <option value="BTech">BTech</option>
+            <option value="Diploma">Diploma</option>
+          </select>
+          <select
+            name="branch"
+            value={formData.branch}
+            onChange={handleChange}
+            required
+            className="input-style"
+          >
+            <option value="">Select Branch</option>
+            <option value="CSE">CSE</option>
+            <option value="MECH">MECH</option>
+            <option value="EE">EE</option>
+            <option value="CIVIL">CIVIL</option>
+          </select>
+          <input
+            type="number"
+            name="startYear"
+            placeholder="Start Year"
+            value={formData.startYear}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <input
+            type="number"
+            name="endYear"
+            placeholder="End Year"
+            value={formData.endYear}
+            onChange={handleChange}
+            required
+            className="input-style"
+          />
+          <div className="sm:col-span-2">
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded"
+              className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2.5 rounded-md shadow-md"
             >
-              Register
+              Register Student
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -53,22 +53,20 @@ public class EmployeeController {
     @DeleteMapping("/deleteEmployee")
     public ResponseEntity<?> deleteEmployee(@RequestParam String email) {
         EmployeeModel emp = employeeRepository.findByEmail(email);
-        System.out.println(emp);
 
         if (emp == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found.");
         }
-        if (emp.getTimeTable() != null) {
-            String timetableId = emp.getTimeTable().getId();
-            empTimeTableRepository.deleteById(timetableId);
+        if (emp.getTimeTable() != null && emp.getTimeTable().getId() != null) {
+            empTimeTableRepository.deleteById(emp.getTimeTable().getId());
         }
         employeeRepository.deleteByEmail(email);
         return ResponseEntity.ok("Employee and timetable deleted successfully.");
     }
 
-    @PatchMapping("/editEmployee")
+    @PutMapping("/editEmployee/{email}")
     public ResponseEntity<?> editEmployee(
-            @RequestParam String email,
+            @PathVariable String email,
             @RequestBody EmployeeModel updatedEmployee) {
 
         EmployeeModel existingEmp = employeeRepository.findByEmail(email);
