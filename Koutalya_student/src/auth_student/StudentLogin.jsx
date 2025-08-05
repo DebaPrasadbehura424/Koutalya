@@ -86,10 +86,13 @@ function StudentLogin() {
       setError("");
 
       const data = res.data;
+      sessionStorage.setItem("studentId", data.id);
       sessionStorage.setItem("program", data.program);
       sessionStorage.setItem("branch", data.branch);
       sessionStorage.setItem("semester", data.semester);
       sessionStorage.setItem("section", data.section);
+
+
       navigate("/student_dashBoard");
     } catch (err) {
       console.error("Login Error", err);

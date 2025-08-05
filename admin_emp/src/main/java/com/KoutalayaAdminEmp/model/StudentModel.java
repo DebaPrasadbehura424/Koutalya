@@ -1,8 +1,13 @@
 package com.KoutalayaAdminEmp.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.KoutalayaAdminEmp.utils.Attendance;
+
 import lombok.Data;
 
 @Document(collection = "students")
@@ -30,4 +35,7 @@ public class StudentModel {
     private int endYear;
 
     private String photo;
+
+    private List<Attendance> attendance;
+
 }

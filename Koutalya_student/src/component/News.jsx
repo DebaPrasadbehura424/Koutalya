@@ -34,10 +34,6 @@ const News = () => {
                   src={item.imageURL}
                   alt={item.title}
                   className="w-full h-32 object-cover"
-                  onError={(e) => {
-                    e.target.src =
-                      "https://via.placeholder.com/300x120?text=No+Image"; // Fallback image
-                  }}
                 />
                 <div className="p-3">
                   <h2 className="text-base font-semibold text-blue-900 mb-1 line-clamp-1">

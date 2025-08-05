@@ -1,6 +1,7 @@
 package com.KoutalayaAdminEmp.services;
 
 import com.KoutalayaAdminEmp.repository.StudentRepository;
+import com.KoutalayaAdminEmp.utils.Attendance;
 import com.KoutalayaAdminEmp.utils.PasswordGenerator;
 import com.KoutalayaAdminEmp.model.StudentModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +19,28 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private SubjectService subjectService;
+
     public StudentModel registerStudent(StudentModel studentModel) {
         String password = PasswordGenerator.generatePassword();
         studentModel.setPassword(password);
+
+        List<String> subjects = subjectService.getSubjectsFor(studentModel.getProgram(),
+                studentModel.getBranch(),
+                studentModel.getSemester(),
+                studentModel.getSection());
+        List<Attendance> attendanceList = new ArrayList<>();
+        for (String subject : subjects) {
+            Attendance att = new Attendance();
+            att.setSubject(subject);
+            att.setTotalClasses(0);
+            att.setPresentClasses(0);
+            att.setAbsentClasses(0);
+            attendanceList.add(att);
+        }
+        
+        studentModel.setAttendance(attendanceList);
         return studentRepository.save(studentModel);
     }
 

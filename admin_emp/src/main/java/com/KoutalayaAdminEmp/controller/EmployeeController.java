@@ -39,8 +39,8 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
+    @PostMapping("/login/{email}/{password}")
+    public ResponseEntity<?> login(@PathVariable String email, @PathVariable String password) {
         try {
             EmployeeModel emp = employeeServices.login(email, password);
             return ResponseEntity.ok(emp);
