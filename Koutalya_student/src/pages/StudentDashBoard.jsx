@@ -4,32 +4,37 @@ import {
   FaNewspaper,
   FaBell,
   FaCheckCircle,
-  FaStickyNote,
   FaBook,
   FaPen,
   FaRupeeSign,
   FaGamepad,
   FaSignOutAlt,
+  FaClock,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa";
+
 import News from "../component/News";
 import Notification from "../component/Notification";
-
-const menuItems = [
-  { name: "News", icon: <FaNewspaper /> },
-  { name: "Notification", icon: <FaBell /> },
-  { name: "Attendance", icon: <FaCheckCircle /> },
-  { name: "Notes", icon: <FaStickyNote /> },
-  { name: "Study Materials", icon: <FaBook /> },
-  { name: "Test", icon: <FaPen /> },
-  { name: "Fee Status", icon: <FaRupeeSign /> },
-  { name: "Games", icon: <FaGamepad /> },
-  { name: "Logout", icon: <FaSignOutAlt /> },
-];
+import TimeTable from "../component/TimeTable";
 
 const StudentDashBoard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const [component, setComponent] = useState(0);
+  const [studyDropdownOpen, setStudyDropdownOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => {
+      const isOpen = !prev;
+      document.body.style.overflow = isOpen ? "hidden" : "auto";
+      return isOpen;
+    });
+  };
+
+  const handleComponentSelect = (val) => {
+    setComponent(val);
+    if (sidebarOpen) toggleSidebar();
+  };
 
   const renderContent = () => {
     switch (component) {
@@ -37,21 +42,27 @@ const StudentDashBoard = () => {
         return <News />;
       case 1:
         return <Notification />;
+      case 2:
+        return <p className="text-xl">Attendance</p>;
+      case 3:
+        return <TimeTable />;
+      case "assignment":
+        return <p className="text-xl">Assignment</p>;
+      case "exampaper":
+        return <p className="text-xl">Exam Paper</p>;
+      case "notes":
+        return <p className="text-xl">Notes</p>;
+      case 4:
+        return <p className="text-xl">Test</p>;
+      case 5:
+        return <p className="text-xl">Fee Status</p>;
+      case 6:
+        return <p className="text-xl">Games</p>;
+      case 7:
+        return <p className="text-xl">Logging out...</p>;
       default:
         return <p className="text-xl text-gray-800">Default page</p>;
     }
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen((prev) => {
-      const isOpen = !prev;
-      if (isOpen) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-      return isOpen;
-    });
   };
 
   return (
@@ -74,22 +85,128 @@ const StudentDashBoard = () => {
         </div>
 
         <nav className="flex flex-col gap-1 p-4">
-          {menuItems.map((item, idx) => (
+          <button
+            onClick={() => handleComponentSelect(0)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 0 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaNewspaper />
+            News
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(1)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 1 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaBell />
+            Notification
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(2)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 2 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaCheckCircle />
+            Attendance
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(3)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 3 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaClock />
+            Timetable
+          </button>
+
+          {/* Study Materials with Dropdown */}
+          <div>
             <button
-              onClick={() => {
-                setComponent(idx);
-                if (sidebarOpen) toggleSidebar();
-              }}
-              key={idx}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors ${
-                component === idx ? "bg-blue-600" : ""
-              }`}
-              aria-label={`Navigate to ${item.name}`}
+              onClick={() => setStudyDropdownOpen((prev) => !prev)}
+              className="flex items-center justify-between w-full gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800"
             >
-              {item.icon}
-              <span>{item.name}</span>
+              <span className="flex items-center gap-3">
+                <FaBook />
+                Study Materials
+              </span>
+              {studyDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
             </button>
-          ))}
+
+            {studyDropdownOpen && (
+              <div className="ml-8 mt-1 flex flex-col gap-1">
+                <button
+                  onClick={() => handleComponentSelect("assignment")}
+                  className={`text-left px-3 py-2 rounded-md text-sm hover:bg-gray-800 ${
+                    component === "assignment" ? "bg-blue-600" : ""
+                  }`}
+                >
+                  Assignment
+                </button>
+                <button
+                  onClick={() => handleComponentSelect("exampaper")}
+                  className={`text-left px-3 py-2 rounded-md text-sm hover:bg-gray-800 ${
+                    component === "exampaper" ? "bg-blue-600" : ""
+                  }`}
+                >
+                  Exam Paper
+                </button>
+                <button
+                  onClick={() => handleComponentSelect("notes")}
+                  className={`text-left px-3 py-2 rounded-md text-sm hover:bg-gray-800 ${
+                    component === "notes" ? "bg-blue-600" : ""
+                  }`}
+                >
+                  Notes
+                </button>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={() => handleComponentSelect(4)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 4 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaPen />
+            Test
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(5)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 5 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaRupeeSign />
+            Fee Status
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(6)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 6 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaGamepad />
+            Games
+          </button>
+
+          <button
+            onClick={() => handleComponentSelect(7)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 ${
+              component === 7 ? "bg-blue-600" : ""
+            }`}
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </nav>
       </div>
 

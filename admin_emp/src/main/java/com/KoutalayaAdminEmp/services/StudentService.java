@@ -38,7 +38,6 @@ public class StudentService {
             student.setName(updatedStudent.getName());
             student.setEmail(updatedStudent.getEmail());
             student.setRegistrationId(updatedStudent.getRegistrationId());
-            student.setCourse(updatedStudent.getCourse());
             student.setBranch(updatedStudent.getBranch());
             student.setStartYear(updatedStudent.getStartYear());
             student.setEndYear(updatedStudent.getEndYear());

@@ -116,7 +116,7 @@ const TimetableStudent = () => {
             <thead>
               <tr className="bg-[#1e293b] text-white">
                 <th className="border border-[#00BFFF] px-4 py-2">Day</th>
-                {Array.from({ length: 8 }).map((_, idx) => (
+                {Array.from({ length: 6 }).map((_, idx) => (
                   <th key={idx} className="border border-[#00BFFF] px-4 py-2">
                     Slot {idx + 1}
                   </th>
@@ -131,7 +131,7 @@ const TimetableStudent = () => {
                     <td className="border border-[#00BFFF] px-4 py-2 font-bold text-[#facc15]">
                       {day}
                     </td>
-                    {Array.from({ length: 8 }).map((_, idx) => {
+                    {Array.from({ length: 6 }).map((_, idx) => {
                       const entry = entries[idx];
                       return (
                         <td

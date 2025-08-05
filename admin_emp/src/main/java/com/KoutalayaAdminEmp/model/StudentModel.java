@@ -8,6 +8,7 @@ import lombok.Data;
 @Document(collection = "students")
 @Data
 public class StudentModel {
+
     @Id
     private String id;
 
@@ -21,9 +22,12 @@ public class StudentModel {
 
     private String password;
 
-    private String course;
+    private String program;
     private String branch;
+    private int semester;
+    private String section;
     private int startYear;
     private int endYear;
+
     private String photo;
 }

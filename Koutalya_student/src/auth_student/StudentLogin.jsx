@@ -8,7 +8,6 @@ function StudentLogin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Canvas animation setup
   useEffect(() => {
     const canvas = document.getElementById("bgCanvas");
     const ctx = canvas.getContext("2d");
@@ -85,7 +84,13 @@ function StudentLogin() {
       });
 
       setError("");
-      navigate("/student-dashboard");
+
+      const data = res.data;
+      sessionStorage.setItem("program", data.program);
+      sessionStorage.setItem("branch", data.branch);
+      sessionStorage.setItem("semester", data.semester);
+      sessionStorage.setItem("section", data.section);
+      navigate("/student_dashBoard");
     } catch (err) {
       console.error("Login Error", err);
       if (err.response && err.response.status === 404) {

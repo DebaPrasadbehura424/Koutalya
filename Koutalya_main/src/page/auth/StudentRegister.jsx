@@ -9,11 +9,13 @@ function StudentRegister() {
     name: "",
     email: "",
     registrationId: "",
-    course: "",
+    photo: "",
+    program: "",
     branch: "",
+    semester: "",
+    section: "",
     startYear: "",
     endYear: "",
-    photo: "",
   });
 
   const handleChange = (e) => {
@@ -33,11 +35,13 @@ function StudentRegister() {
           name: "",
           email: "",
           registrationId: "",
-          course: "",
+          photo: "",
+          program: "",
           branch: "",
+          semester: "",
+          section: "",
           startYear: "",
           endYear: "",
-          photo: "",
         });
       })
       .catch((err) => {
@@ -49,23 +53,24 @@ function StudentRegister() {
   const handleViewAll = () => navigate("/all_student");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 px-4 py-10 text-white flex justify-center items-center">
-      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg p-8 text-gray-900 relative">
-        <button
-          onClick={handleViewAll}
-          className="absolute top-4 right-4 flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md shadow-md text-sm"
-        >
-          <FiUsers className="text-base" />
-          All Students
-        </button>
-
-        <h2 className="text-3xl font-bold text-center text-blue-700 mb-8">
-          Student Registration
-        </h2>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 px-4 py-8 flex justify-center items-center text-white">
+      <div className="w-full max-w-4xl">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-white">
+            Student Registration
+          </h2>
+          <button
+            onClick={handleViewAll}
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md shadow text-sm"
+          >
+            <FiUsers className="text-base" />
+            All Students
+          </button>
+        </div>
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           <input
             type="text"
@@ -74,7 +79,7 @@ function StudentRegister() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="input-style"
+            className="input-dark"
           />
           <input
             type="email"
@@ -83,7 +88,7 @@ function StudentRegister() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="input-style"
+            className="input-dark"
           />
           <input
             type="text"
@@ -92,7 +97,7 @@ function StudentRegister() {
             value={formData.registrationId}
             onChange={handleChange}
             required
-            className="input-style"
+            className="input-dark"
           />
           <input
             type="text"
@@ -101,31 +106,55 @@ function StudentRegister() {
             value={formData.photo}
             onChange={handleChange}
             required
-            className="input-style"
+            className="input-dark"
           />
           <select
-            name="course"
-            value={formData.course}
+            name="program"
+            value={formData.program}
             onChange={handleChange}
             required
-            className="input-style"
+            className="bg-gray-400"
           >
-            <option value="">Select Course</option>
-            <option value="BTech">BTech</option>
+            <option value="">Select Program</option>
+            <option value="B.Tech">B.Tech</option>
             <option value="Diploma">Diploma</option>
           </select>
+
           <select
             name="branch"
             value={formData.branch}
             onChange={handleChange}
             required
-            className="input-style"
+            className="bg-gray-400"
           >
             <option value="">Select Branch</option>
             <option value="CSE">CSE</option>
             <option value="MECH">MECH</option>
             <option value="EE">EE</option>
             <option value="CIVIL">CIVIL</option>
+          </select>
+          <select
+            name="semester"
+            value={formData.semester}
+            onChange={handleChange}
+            required
+            className="bg-gray-400"
+          >
+            <option value="">Select Semester</option>
+            {[...Array(8)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>{`Semester ${i + 1}`}</option>
+            ))}
+          </select>
+          <select
+            name="section"
+            value={formData.section}
+            onChange={handleChange}
+            required
+            className="bg-gray-400"
+          >
+            <option value="">Select Section</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
           </select>
           <input
             type="number"
@@ -134,7 +163,7 @@ function StudentRegister() {
             value={formData.startYear}
             onChange={handleChange}
             required
-            className="input-style"
+            className="bg-gray-400"
           />
           <input
             type="number"
@@ -143,12 +172,13 @@ function StudentRegister() {
             value={formData.endYear}
             onChange={handleChange}
             required
-            className="input-style"
+            className="bg-gray-400"
           />
-          <div className="sm:col-span-2">
+
+          <div className="col-span-1 sm:col-span-2 lg:col-span-3">
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2.5 rounded-md shadow-md"
+              className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-2.5 rounded-md shadow"
             >
               Register Student
             </button>
