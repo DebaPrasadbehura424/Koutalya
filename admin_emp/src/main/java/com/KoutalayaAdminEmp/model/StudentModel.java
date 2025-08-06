@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.KoutalayaAdminEmp.utils.Attendance;
@@ -33,9 +34,10 @@ public class StudentModel {
     private String section;
     private int startYear;
     private int endYear;
-
     private String photo;
-
     private List<Attendance> attendance;
+
+    @DBRef
+    private FeesModel feesModel;
 
 }

@@ -6,6 +6,7 @@ import com.KoutalayaAdminEmp.repository.EmployeeRepository;
 import com.KoutalayaAdminEmp.repository.EmployeeTimeTableRepository;
 import com.KoutalayaAdminEmp.services.EmployeeServices;
 import com.KoutalayaAdminEmp.utils.DaySchedule;
+import com.KoutalayaAdminEmp.utils.LoginTackle;
 import com.KoutalayaAdminEmp.utils.TimeSlot;
 
 import java.util.List;
@@ -39,10 +40,10 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/login/{email}/{password}")
-    public ResponseEntity<?> login(@PathVariable String email, @PathVariable String password) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginTackle loginTackle) {
         try {
-            EmployeeModel emp = employeeServices.login(email, password);
+            EmployeeModel emp = employeeServices.login(loginTackle.getEmail(), loginTackle.getPassword());
             return ResponseEntity.ok(emp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

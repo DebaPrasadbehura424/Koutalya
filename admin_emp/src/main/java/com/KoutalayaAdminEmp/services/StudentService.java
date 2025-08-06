@@ -1,8 +1,10 @@
 package com.KoutalayaAdminEmp.services;
 
+import com.KoutalayaAdminEmp.repository.FeesRepository;
 import com.KoutalayaAdminEmp.repository.StudentRepository;
 import com.KoutalayaAdminEmp.utils.Attendance;
 import com.KoutalayaAdminEmp.utils.PasswordGenerator;
+import com.KoutalayaAdminEmp.model.FeesModel;
 import com.KoutalayaAdminEmp.model.StudentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private FeesRepository feesRepository;
 
     @Autowired
     private SubjectService subjectService;
@@ -26,10 +30,12 @@ public class StudentService {
         String password = PasswordGenerator.generatePassword();
         studentModel.setPassword(password);
 
-        List<String> subjects = subjectService.getSubjectsFor(studentModel.getProgram(),
+        List<String> subjects = subjectService.getSubjectsFor(
+                studentModel.getProgram(),
                 studentModel.getBranch(),
                 studentModel.getSemester(),
                 studentModel.getSection());
+
         List<Attendance> attendanceList = new ArrayList<>();
         for (String subject : subjects) {
             Attendance att = new Attendance();
@@ -39,8 +45,31 @@ public class StudentService {
             att.setAbsentClasses(0);
             attendanceList.add(att);
         }
-        
         studentModel.setAttendance(attendanceList);
+
+        FeesModel feesModel = new FeesModel();
+        feesModel.setSemester(studentModel.getSemester());
+        feesModel.setCourseDues("25000");
+        feesModel.setHostelDues("15000");
+        feesModel.setTransportDues("5000");
+        feesModel.setFine("0");
+
+        int total = Integer.parseInt(feesModel.getCourseDues())
+                + Integer.parseInt(feesModel.getHostelDues())
+                + Integer.parseInt(feesModel.getTransportDues())
+                + Integer.parseInt(feesModel.getFine());
+        feesModel.setTotalDues(String.valueOf(total));
+        feesModel.setPayNow("0");
+
+        feesModel.setTrasanctionDate("");
+        feesModel.setAmountPaid("0");
+        feesModel.setBankRefNo("");
+        feesModel.setMode("");
+        feesModel.setStatus("Pending");
+
+        studentModel.setFeesModel(feesModel);
+
+        feesRepository.save(feesModel);
         return studentRepository.save(studentModel);
     }
 

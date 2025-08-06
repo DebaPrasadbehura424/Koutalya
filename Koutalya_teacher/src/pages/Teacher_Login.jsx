@@ -18,9 +18,11 @@ function Teacher_Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `http://localhost:1950/emps/login/${email}/${password}`
-      );
+      const response = await axios.post("http://localhost:1950/emps/login", {
+        email,
+        password,
+      });
+
       if (response.status === 200) {
         navigate("/teacher_dashboard");
       }
