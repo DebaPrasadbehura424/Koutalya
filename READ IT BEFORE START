@@ -5,4 +5,9 @@ and student attendance schema not prepare also all the brach time table not prep
 
 
 
-fees model and save all are i set in springboot  but the curd opration i done it using node js
+i will redesing the feesmodel ok i will divide the pay system user can only any section like only for hostel dues and only for course 
+and make transaction list type ok to store every transaction ok then always what we pay just substract that amount frm that use 
+// payfor if pay for hostel then substarct form hostel as well as total payment and same for others 
+// also if dues is 0 for any section then  dont allow for others
+// make fees section in admin for upadate the feesl data of student if student pay offline 
+// and update next year data ok do it 

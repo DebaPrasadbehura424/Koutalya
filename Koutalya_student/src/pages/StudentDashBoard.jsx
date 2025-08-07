@@ -18,6 +18,7 @@ import News from "../component/News";
 import Notification from "../component/Notification";
 import TimeTable from "../component/TimeTable";
 import Attendance from "../component/Attendance";
+import Fees from "../component/Fees";
 
 const StudentDashBoard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -56,7 +57,7 @@ const StudentDashBoard = () => {
       case 4:
         return <p className="text-xl">Test</p>;
       case 5:
-        return <p className="text-xl">Fee Status</p>;
+        return <Fees />;
       case 6:
         return <p className="text-xl">Games</p>;
       case 7:

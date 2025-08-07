@@ -58,18 +58,14 @@ public class StudentService {
                 + Integer.parseInt(feesModel.getHostelDues())
                 + Integer.parseInt(feesModel.getTransportDues())
                 + Integer.parseInt(feesModel.getFine());
+
         feesModel.setTotalDues(String.valueOf(total));
-        feesModel.setPayNow("0");
 
-        feesModel.setTrasanctionDate("");
-        feesModel.setAmountPaid("0");
-        feesModel.setBankRefNo("");
-        feesModel.setMode("");
-        feesModel.setStatus("Pending");
-
-        studentModel.setFeesModel(feesModel);
+        feesModel.setTransactionData(new ArrayList<>());
 
         feesRepository.save(feesModel);
+        studentModel.setFeesModel(feesModel);
+
         return studentRepository.save(studentModel);
     }
 
