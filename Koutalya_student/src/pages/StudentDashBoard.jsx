@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import {
   FaNewspaper,
   FaBell,
@@ -19,11 +20,13 @@ import Notification from "../component/Notification";
 import TimeTable from "../component/TimeTable";
 import Attendance from "../component/Attendance";
 import Fees from "../component/Fees";
+import Games from "./Games";
 
 const StudentDashBoard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [component, setComponent] = useState(0);
   const [studyDropdownOpen, setStudyDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => {
@@ -59,7 +62,7 @@ const StudentDashBoard = () => {
       case 5:
         return <Fees />;
       case 6:
-        return <p className="text-xl">Games</p>;
+        return <Games />;
       case 7:
         return <p className="text-xl">Logging out...</p>;
       default:
