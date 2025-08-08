@@ -11,3 +11,8 @@ and make transaction list type ok to store every transaction ok then always what
 // also if dues is 0 for any section then  dont allow for others
 // make fees section in admin for upadate the feesl data of student if student pay offline 
 // and update next year data ok do it 
+
+
+
+
+// yaar problem occurs  in when admin add timeslot of teacher  it is not works  fix the code

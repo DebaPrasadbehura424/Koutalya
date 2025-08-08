@@ -2,6 +2,7 @@ package com.KoutalayaAdminEmp.controller;
 
 import com.KoutalayaAdminEmp.model.EmpTimeTableModel;
 import com.KoutalayaAdminEmp.model.EmployeeModel;
+import com.KoutalayaAdminEmp.model.TimetableModel;
 import com.KoutalayaAdminEmp.repository.EmployeeRepository;
 import com.KoutalayaAdminEmp.repository.EmployeeTimeTableRepository;
 import com.KoutalayaAdminEmp.services.EmployeeServices;
@@ -10,6 +11,7 @@ import com.KoutalayaAdminEmp.utils.LoginTackle;
 import com.KoutalayaAdminEmp.utils.TimeSlot;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -195,6 +197,22 @@ public class EmployeeController {
 
         empTimeTableRepository.save(timeTable);
         return ResponseEntity.ok("Slot updated successfully in " + daysName);
+    }
+
+    @GetMapping("/getTimeTable/{id}")
+    public ResponseEntity<?> getEmpTimeTable(@PathVariable String id) {
+        try {
+            Optional<EmpTimeTableModel> empTimeTableModel = empTimeTableRepository.findById(id);
+
+            if (empTimeTableModel.isPresent()) {
+                return new ResponseEntity<>(empTimeTableModel.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Time table not found for ID: " + id, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error retrieving time table: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

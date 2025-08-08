@@ -24,6 +24,10 @@ function Teacher_Login() {
       });
 
       if (response.status === 200) {
+        const data = response.data;
+        sessionStorage.setItem("teacherId", data.id);
+        sessionStorage.setItem("timetable", data.timeTable.id);
+
         navigate("/teacher_dashboard");
       }
     } catch (err) {

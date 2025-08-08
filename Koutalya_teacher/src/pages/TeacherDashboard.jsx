@@ -12,11 +12,13 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
+import TimeTable from "../component/TimeTable";
 
 const TeacherDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [component, setComponent] = useState(0);
   const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
+  const [overviewDropdownOpen, setOverviewDropdownOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen((prev) => {
@@ -35,8 +37,12 @@ const TeacherDashboard = () => {
     switch (component) {
       case 0:
         return <p className="text-xl">Class Overview</p>;
+      case "news":
+        return <p className="text-xl">Latest News</p>;
+      case "notifications":
+        return <p className="text-xl">Notifications</p>;
       case 1:
-        return <p className="text-xl">Assignments</p>;
+        return <TimeTable />;
       case 2:
         return <p className="text-xl">Attendance Tracker</p>;
       case 3:
@@ -50,7 +56,7 @@ const TeacherDashboard = () => {
       case 4:
         return <p className="text-xl">Student Management</p>;
       case 5:
-        return <p className="text-xl">Logout...</p>;
+        return <p className="text-xl">Logging out...</p>;
       default:
         return <p className="text-xl text-gray-800">Teacher Dashboard</p>;
     }
@@ -78,15 +84,39 @@ const TeacherDashboard = () => {
         </div>
 
         <nav className="flex flex-col gap-1 p-4">
-          <button
-            onClick={() => handleComponentSelect(0)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-purple-800 ${
-              component === 0 ? "bg-purple-700" : ""
-            }`}
-          >
-            <FaChalkboardTeacher />
-            Overview
-          </button>
+          <div>
+            <button
+              onClick={() => setOverviewDropdownOpen((prev) => !prev)}
+              className="flex items-center justify-between w-full gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-purple-800"
+            >
+              <span className="flex items-center gap-3">
+                <FaChalkboardTeacher />
+                Overview
+              </span>
+              {overviewDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
+
+            {overviewDropdownOpen && (
+              <div className="ml-8 mt-1 flex flex-col gap-1">
+                <button
+                  onClick={() => handleComponentSelect("news")}
+                  className={`text-left px-3 py-2 rounded-md text-sm hover:bg-purple-800 ${
+                    component === "news" ? "bg-purple-700" : ""
+                  }`}
+                >
+                  News
+                </button>
+                <button
+                  onClick={() => handleComponentSelect("notifications")}
+                  className={`text-left px-3 py-2 rounded-md text-sm hover:bg-purple-800 ${
+                    component === "notifications" ? "bg-purple-700" : ""
+                  }`}
+                >
+                  Notifications
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             onClick={() => handleComponentSelect(1)}
@@ -95,27 +125,7 @@ const TeacherDashboard = () => {
             }`}
           >
             <FaClipboardList />
-            Assignments
-          </button>
-
-          <button
-            onClick={() => handleComponentSelect(2)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-purple-800 ${
-              component === 2 ? "bg-purple-700" : ""
-            }`}
-          >
-            <FaUsers />
-            Attendance
-          </button>
-
-          <button
-            onClick={() => handleComponentSelect(3)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-purple-800 ${
-              component === 3 ? "bg-purple-700" : ""
-            }`}
-          >
-            <FaCalendarAlt />
-            Schedule
+            Time Table
           </button>
 
           <div>
@@ -138,7 +148,7 @@ const TeacherDashboard = () => {
                     component === "materials" ? "bg-purple-700" : ""
                   }`}
                 >
-                  Materials
+                  Assignment
                 </button>
                 <button
                   onClick={() => handleComponentSelect("quizzes")}
@@ -154,7 +164,7 @@ const TeacherDashboard = () => {
                     component === "results" ? "bg-purple-700" : ""
                   }`}
                 >
-                  Results
+                  Note
                 </button>
               </div>
             )}
@@ -167,7 +177,7 @@ const TeacherDashboard = () => {
             }`}
           >
             <FaGraduationCap />
-            Manage Students
+            Student Attendance
           </button>
 
           <button
